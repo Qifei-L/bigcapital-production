@@ -12,6 +12,7 @@ RUN mkdir -p /opt/frappe-source /opt/frappe-books \
  && curl -fsSL https://codeload.github.com/frappe/frappe/tar.gz/5395b683e2be865f7fd70ea5df5cd8205ebce6fc | tar xz --strip-components=1 -C /opt/frappe-source \
  && curl -fsSL https://codeload.github.com/frappe/frappe-books/tar.gz/7a1822912f6058e9a242cda8d13a1572a0c0a5c9 | tar xz --strip-components=1 -C /opt/frappe-books \
  && cd /opt/frappe-source && git init -b develop && git add . && git -c user.name=Build -c user.email=build@example.invalid commit -qm 'Pinned upstream snapshot' \
+ && cd /opt/frappe-books && git init -b develop && git add . && git -c user.name=Build -c user.email=build@example.invalid commit -qm 'Pinned Books snapshot' && git remote add origin https://github.com/frappe/frappe-books.git \
  && chown -R frappe:frappe /opt/frappe-source /opt/frappe-books
 USER frappe
 RUN bench init /home/frappe/frappe-bench --frappe-path file:///opt/frappe-source --frappe-branch develop --python /usr/local/bin/python3.14 --skip-assets --no-backups --no-procfile --skip-redis-config-generation
