@@ -1,7 +1,8 @@
 import os
+os.chdir('/home/frappe/frappe-bench/sites')
 import frappe
 from frappe_books.frappe_books.doctype.books_setup_wizard.books_setup_wizard import complete_setup
-frappe.init(site=os.environ["SITE_NAME"], sites_path="sites")
+frappe.init(site=os.environ["SITE_NAME"], sites_path=".")
 frappe.connect()
 frappe.set_user("Administrator")
 try:
