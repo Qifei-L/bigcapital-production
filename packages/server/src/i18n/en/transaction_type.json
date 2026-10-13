@@ -13,6 +13,7 @@
   "transfer_to_account": "Transfer to account",
   "transfer_from_account": "Transfer from account",
   "other_income": "Other income",
+  "suspense_receipt": "Suspense receipt (pending review)",
   "other_expense": "Other expense",
   "owner_drawing": "Owner drawing",
   "invoice_write_off": "Invoice write-off",

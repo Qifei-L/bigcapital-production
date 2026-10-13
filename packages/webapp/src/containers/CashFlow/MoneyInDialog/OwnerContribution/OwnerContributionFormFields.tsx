@@ -28,7 +28,11 @@ import { useDateInputFormatter } from '@/hooks';
 /**
  * Owner contribution form fields.
  */
-export function OwnerContributionFormFields() {
+export function OwnerContributionFormFields({
+  suspense = false,
+}: {
+  suspense?: boolean;
+}) {
   const { accounts, branches } = useMoneyInDailogContext();
   const { account } = useMoneyInFieldsContext();
 
@@ -37,6 +41,9 @@ export function OwnerContributionFormFields() {
 
   return (
     <React.Fragment>
+      {suspense && (
+        <p role="note">{intl.get('banking.suspense_receipt_help')}</p>
+      )}
       <FeatureCan feature={Features.Branches}>
         <Row>
           <Col xs={5}>
@@ -106,13 +113,18 @@ export function OwnerContributionFormFields() {
           {/*------------ equity account -----------*/}
           <FFormGroup
             name={'creditAccountId'}
-            label={intl.get('cash_flow_transaction.label_equity_account')}
+            label={intl.get(
+              suspense
+                ? 'banking.pending_receipts_account'
+                : 'cash_flow_transaction.label_equity_account',
+            )}
             labelInfo={<FieldRequiredHint />}
           >
             <FAccountsSuggestField
               name={'creditAccountId'}
               items={accounts}
               filterByTypes={[ACCOUNT_TYPE.EQUITY]}
+              allowCreate={suspense}
             />
           </FFormGroup>
         </Col>

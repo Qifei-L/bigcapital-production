@@ -131,6 +131,16 @@ export class CreateBankTransactionService {
       .findById(newTransactionDTO.creditAccountId)
       .throwIfNotFound();
 
+    if (
+      transformCashflowTransactionType(newTransactionDTO.transactionType) ===
+      CASHFLOW_TRANSACTION_TYPE.SUSPENSE_RECEIPT
+    ) {
+      this.validator.validateSuspenseReceipt(
+        newTransactionDTO.amount,
+        cashflowAccount,
+      );
+    }
+
     // Authorize before creating cashflow transaction.
     await this.authorize(newTransactionDTO, creditAccount);
 

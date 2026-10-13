@@ -94,7 +94,7 @@ function AccountTransactionsActionsBarInner({
   const { mutateAsync: updateBankAccount } = useUpdateBankAccount();
 
   // Retrieves the money in/out buttons options.
-  const addMoneyInOptions = useMemo(() => getAddMoneyInOptions(), []);
+  const addMoneyInOptions = useMemo(() => getAddMoneyInOptions(true), []);
   const addMoneyOutOptions = useMemo(() => getAddMoneyOutOptions(), []);
 
   const isFeedsActive = !!currentAccount?.isFeedsActive;

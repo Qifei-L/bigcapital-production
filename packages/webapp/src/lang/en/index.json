@@ -2264,5 +2264,8 @@
   "api_key.display_warning": "This API key will only be shown once. Please copy and save it securely.",
   "api_key.label": "API Key",
   "api_key.copy_to_clipboard": "Copy to clipboard",
-  "the_expenses_has_been_deleted_successfully": "The expenses have been deleted successfully."
+  "the_expenses_has_been_deleted_successfully": "The expenses have been deleted successfully.",
+  "banking.suspense_receipt": "Suspense receipt (pending review)",
+  "banking.pending_receipts_account": "Suspense account (Equity)",
+  "banking.suspense_receipt_help": "Choose or create a dedicated Suspense account with type Equity. This records the bank receipt without treating it as income. Once identified, use a manual journal to debit Suspense and credit the correct account; do not record the bank receipt again."
 }

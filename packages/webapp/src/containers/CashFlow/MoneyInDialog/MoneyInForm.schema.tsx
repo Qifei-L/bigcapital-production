@@ -4,7 +4,13 @@ import { DATATYPES_LENGTH } from '@/constants/dataTypes';
 
 const Schema = Yup.object().shape({
   date: Yup.date().required().label(intl.get('date')),
-  amount: Yup.number().required().label(intl.get('amount')),
+  amount: Yup.number()
+    .required()
+    .when('transactionType', {
+      is: 'suspense_receipt',
+      then: (schema) => schema.moreThan(0),
+    })
+    .label(intl.get('amount')),
   transactionNumber: Yup.string(),
   transactionType: Yup.string().required(),
   referenceNo: Yup.string(),

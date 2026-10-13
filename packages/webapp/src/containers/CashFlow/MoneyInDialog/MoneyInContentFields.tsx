@@ -18,6 +18,9 @@ export function MoneyInContentFields() {
       case 'owner_contribution':
         return <OwnerContributionFormFields />;
 
+      case 'suspense_receipt':
+        return <OwnerContributionFormFields suspense />;
+
       case 'other_income':
         return <OtherIncomeFormFields />;
 

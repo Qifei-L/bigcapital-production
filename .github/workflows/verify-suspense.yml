@@ -1,0 +1,39 @@
+name: Verify Suspense receipts
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-suspense.yml'
+      - 'packages/server/src/modules/BankingTransactions/**'
+      - 'packages/server/src/i18n/en/transaction_type.json'
+      - 'packages/webapp/src/containers/CashFlow/**'
+      - 'packages/webapp/src/constants/cashflowOptions.tsx'
+      - 'packages/webapp/src/lang/en/index.json'
+      - 'packages/webapp/src/containers/FinancialStatements/utils/transactionDrawer.ts'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      HUSKY: '0'
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+      NODE_OPTIONS: '--max-old-space-size=4096'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --force --frozen-lockfile
+      - run: pnpm run build:shared
+      - name: Validate suspense accounting and input guards
+        run: pnpm --filter @bigcapital/server exec jest --runInBand --runTestsByPath src/modules/BankingTransactions/commands/SuspenseReceipt.spec.ts
+      - name: Compile API
+        run: pnpm run build:server --skip-nx-cache
+      - name: Compile web application
+        run: pnpm --filter @bigcapital/webapp run build

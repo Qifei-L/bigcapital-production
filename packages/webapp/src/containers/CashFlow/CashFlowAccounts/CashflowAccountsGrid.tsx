@@ -224,7 +224,7 @@ export function CashflowAccountsGrid() {
  */
 function CashflowAccountMoneyInContextMenu({ onClick }: MoneyContextMenuProps) {
   // Retreives the add money in button options.
-  const addMoneyInOptions = useMemo(() => getAddMoneyInOptions(), []);
+  const addMoneyInOptions = useMemo(() => getAddMoneyInOptions(true), []);
 
   return (
     <>

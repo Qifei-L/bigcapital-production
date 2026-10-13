@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { ACCOUNT_TYPE } from '@/constants/accounts';
 import { includes, camelCase, upperFirst, sumBy } from 'lodash';
 import { getCashflowTransactionType } from '../utils';
 import {
@@ -13,6 +14,23 @@ import { UncategorizedBankTransaction } from '../models/UncategorizedBankTransac
 
 @Injectable()
 export class CommandBankTransactionValidator {
+  public validateSuspenseReceipt(amount: number, cashflowAccount: Account) {
+    if (!Number.isFinite(amount) || amount <= 0) {
+      throw new BadRequestException(
+        'A suspense receipt must have a positive amount.',
+      );
+    }
+    if (
+      ![ACCOUNT_TYPE.BANK, ACCOUNT_TYPE.CASH].includes(
+        cashflowAccount.accountType,
+      )
+    ) {
+      throw new BadRequestException(
+        'A suspense receipt must be deposited into a bank or cash account.',
+      );
+    }
+  }
+
   /**
    * Validates the lines accounts type should be cash or bank account.
    * @param {Account} accounts -

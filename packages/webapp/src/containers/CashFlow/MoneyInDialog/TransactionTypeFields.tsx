@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useFormikContext } from 'formik';
+import type { MoneyInFormValues } from './types';
 import intl from 'react-intl-universal';
 import { useMoneyInDailogContext } from './MoneyInDialogProvider';
 import {
@@ -17,8 +19,14 @@ import { getAddMoneyInOptions } from '@/constants';
 export function TransactionTypeFields() {
   const { cashflowAccounts, setAccountId } = useMoneyInDailogContext();
 
+  const { values, setFieldValue } = useFormikContext<MoneyInFormValues>();
+  useEffect(() => {
+    // The previous category's credit account cannot carry into a new category.
+    setFieldValue('creditAccountId', '', false);
+  }, [values.transactionType, setFieldValue]);
+
   // Retrieves the add money in button options.
-  const addMoneyInOptions = useMemo(() => getAddMoneyInOptions(), []);
+  const addMoneyInOptions = useMemo(() => getAddMoneyInOptions(true), []);
 
   return (
     <div className="trasnaction-type-fileds">

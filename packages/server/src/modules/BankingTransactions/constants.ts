@@ -30,12 +30,18 @@ export enum CASHFLOW_TRANSACTION_TYPE {
   OWNERS_DRAWING = 'OwnerDrawing',
   OWNER_CONTRIBUTION = 'OwnerContribution',
   OTHER_INCOME = 'OtherIncome',
+  SUSPENSE_RECEIPT = 'SuspenseReceipt',
   TRANSFER_FROM_ACCOUNT = 'TransferFromAccount',
   TRANSFER_TO_ACCOUNT = 'TransferToAccount',
   OTHER_EXPENSE = 'OtherExpense',
 }
 
 export const CASHFLOW_TRANSACTION_TYPE_META = {
+  [CASHFLOW_TRANSACTION_TYPE.SUSPENSE_RECEIPT]: {
+    type: 'SuspenseReceipt',
+    direction: CASHFLOW_DIRECTION.IN,
+    creditType: [ACCOUNT_TYPE.EQUITY],
+  },
   [`${CASHFLOW_TRANSACTION_TYPE.OWNERS_DRAWING}`]: {
     type: 'OwnerDrawing',
     direction: CASHFLOW_DIRECTION.OUT,
@@ -112,6 +118,7 @@ export const BankTransactionsSampleData = [
 
 export const CashflowTransactionTypes = {
   OtherIncome: 'transaction_type.other_income',
+  SuspenseReceipt: 'transaction_type.suspense_receipt',
   OtherExpense: 'transaction_type.other_expense',
   OwnerDrawing: 'transaction_type.owner_drawing',
   OwnerContribution: 'transaction_type.owner_contribution',
@@ -135,6 +142,7 @@ export const TransactionTypes = {
   TransferToAccount: 'transaction_type.transfer_to_account',
   TransferFromAccount: 'transaction_type.transfer_from_account',
   OtherIncome: 'transaction_type.other_income',
+  SuspenseReceipt: 'transaction_type.suspense_receipt',
   OtherExpense: 'transaction_type.other_expense',
   OwnerDrawing: 'transaction_type.owner_drawing',
   InvoiceWriteOff: 'transaction_type.invoice_write_off',

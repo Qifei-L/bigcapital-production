@@ -60,6 +60,10 @@ const TRANSACTION_DRAWER_META: Record<string, { drawer: string; key: string }> =
       drawer: DRAWERS.CASHFLOW_TRNASACTION_DETAILS,
       key: 'referenceId',
     },
+    SuspenseReceipt: {
+      drawer: DRAWERS.CASHFLOW_TRNASACTION_DETAILS,
+      key: 'referenceId',
+    },
     OwnerContribution: {
       drawer: DRAWERS.CASHFLOW_TRNASACTION_DETAILS,
       key: 'referenceId',

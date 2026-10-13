@@ -1,7 +1,17 @@
 import intl from 'react-intl-universal';
 import type { MenuItemOption } from './types';
 
-export const getAddMoneyInOptions = (): MenuItemOption[] => [
+export const getAddMoneyInOptions = (
+  includeSuspense = false,
+): MenuItemOption[] => [
+  ...(includeSuspense
+    ? [
+        {
+          name: intl.get('banking.suspense_receipt'),
+          value: 'suspense_receipt',
+        },
+      ]
+    : []),
   {
     name: intl.get('banking.owner_contribution'),
     value: 'owner_contribution',
@@ -34,6 +44,7 @@ export const getAddMoneyOutOptions = (): MenuItemOption[] => [
 export const TRANSACTIONS_TYPE: string[] = [
   'OwnerContribution',
   'OtherIncome',
+  'SuspenseReceipt',
   'TransferFromAccount',
   'OwnerDrawing',
   'OtherExpense',
@@ -43,6 +54,7 @@ export const TRANSACTIONS_TYPE: string[] = [
 export const MoneyCategoryPerCreditAccountRootType: Record<string, string[]> = {
   OwnerContribution: ['equity'],
   OtherIncome: ['income'],
+  SuspenseReceipt: ['equity'],
   OwnerDrawing: ['equity'],
   OtherExpense: ['expense'],
   TransferToAccount: ['asset'],
