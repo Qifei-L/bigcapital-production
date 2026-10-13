@@ -1,0 +1,4 @@
+**
+!deploy/
+!deploy/frappe-books/
+!deploy/frappe-books/**
