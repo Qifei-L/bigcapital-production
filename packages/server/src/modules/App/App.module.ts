@@ -146,6 +146,7 @@ import { AppThrottleModule } from './AppThrottle.module';
         connection: {
           host: configService.get('queue.host'),
           port: configService.get('queue.port'),
+          password: configService.get('queue.password'),
         },
       }),
       inject: [ConfigService],
