@@ -11,6 +11,7 @@ redis-server --bind 127.0.0.1 --port 6379 --dir /data/redis --appendonly yes --d
 bench set-config -g redis_cache redis://127.0.0.1:6379/0
 bench set-config -g redis_queue redis://127.0.0.1:6379/1
 bench set-config -g redis_socketio redis://127.0.0.1:6379/0
+env/bin/python /opt/ensure_site.py
 if [ ! -f "sites/$SITE_NAME/site_config.json" ]; then
   bench new-site "$SITE_NAME" --db-type sqlite --admin-password "$ADMIN_PASSWORD"
 fi
