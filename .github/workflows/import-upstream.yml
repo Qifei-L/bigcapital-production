@@ -1,0 +1,34 @@
+name: Import pinned Bigcapital source
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/import-upstream.yml
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import source only once
+        env:
+          UPSTREAM_SHA: d2a0bf153a0f11dc4250df504105d3fea74356bd
+        run: |
+          set -eu
+          if [ -f package.json ]; then
+            echo "Source already imported; leaving existing changes untouched."
+            exit 0
+          fi
+          task_source="$(mktemp -d)"
+          curl --fail --location --retry 3 "https://codeload.github.com/bigcapitalhq/bigcapital/tar.gz/$UPSTREAM_SHA" -o "$task_source/source.tar.gz"
+          tar -xzf "$task_source/source.tar.gz" -C "$task_source"
+          rsync -a --exclude=.git --exclude=.github/workflows "$task_source/bigcapital-$UPSTREAM_SHA/" ./
+          mkdir -p .github/upstream-workflows
+          cp -a "$task_source/bigcapital-$UPSTREAM_SHA/.github/workflows/." .github/upstream-workflows/
+          printf '%s\n' "$UPSTREAM_SHA" > .upstream-commit
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore: import Bigcapital source at $UPSTREAM_SHA"
+          git push origin HEAD:main
