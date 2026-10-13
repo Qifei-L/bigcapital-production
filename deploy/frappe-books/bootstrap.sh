@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 cd /home/frappe/frappe-bench
+if [ ! -f sites/common_site_config.json ]; then
+  printf '{}' > sites/common_site_config.json
+fi
 cp -a /opt/built-sites/apps.txt sites/apps.txt
 mkdir -p sites/assets
 cp -a /opt/built-sites/assets/. sites/assets/
