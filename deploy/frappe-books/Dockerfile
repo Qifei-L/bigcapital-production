@@ -23,6 +23,7 @@ RUN cp -aL sites /opt/built-sites && rm -rf sites && ln -s /data/sites sites
 COPY deploy/frappe-books/entrypoint.sh /usr/local/bin/books-entrypoint
 COPY deploy/frappe-books/bootstrap.sh /opt/books-bootstrap.sh
 COPY deploy/frappe-books/setup_demo.py /opt/setup_demo.py
+COPY deploy/frappe-books/ensure_site.py /opt/ensure_site.py
 COPY deploy/frappe-books/run_books.py /opt/run_books.py
 RUN chmod +x /usr/local/bin/books-entrypoint /opt/books-bootstrap.sh
 EXPOSE 8000
