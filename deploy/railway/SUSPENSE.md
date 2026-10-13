@@ -6,4 +6,4 @@ The API accepts `transaction_type: "suspense_receipt"` through the existing bank
 
 Once the receipt is identified, create a manual journal referencing its original transaction number: debit Suspense and credit the appropriate final account. Do not record another bank receipt. This first version adds a manual Money In option; it does not add automated recognition or a one-click resolution workflow. Imported transactions can retain their existing uncategorized workflow, and bank rules do not automatically choose Suspense.
 
-The production services remain stopped and pinned to the previous release. Deploy the tested source commit to both Server and Webapp when restarting; credentials and database contents are kept out of the repository.
+The production demo was restarted at the owner's request. Server and Webapp are pinned to `141b38c2c069f65fcc5dfb2d3deb0c1feccf3e3f`. CI accounting tests and both builds passed. A live fictional 1,000 USD receipt was verified: the demonstration bank and Equity Suspense both show 1,000 USD, while net income remains zero. Credentials and database contents are kept out of the repository.
